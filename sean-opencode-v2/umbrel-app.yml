@@ -2,7 +2,7 @@ manifestVersion: 1
 id: sean-opencode-v2
 category: ai
 name: OpenCode V2
-version: "2.0.22"
+version: "2.0.22.1"
 tagline: AI coding server for OpenCode V2 clients
 description: >-
   OpenCode 2.0.22 with persistent storage and a password-protected desktop API.
@@ -13,13 +13,17 @@ description: >-
 
   This app starts with separate data from the official OpenCode V1 app.
   Configure your model providers and projects after installation.
-releaseNotes: ""
+releaseNotes: >-
+  Opens OpenCode directly on port 4097 to avoid the extra Umbrel proxy login.
+  Browser and desktop now use the same password-protected endpoint.
+  OpenCode remains at version 2.0.22; this is packaging revision 1.
+  Existing app data and the generated password are retained.
 developer: Anomaly
 website: https://opencode.ai/
 dependencies: []
 repo: https://github.com/anomalyco/opencode
 support: https://github.com/anomalyco/opencode/issues
-port: 4098
+port: 4097
 gallery: []
 path: ""
 defaultUsername: opencode

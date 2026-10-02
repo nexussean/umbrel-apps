@@ -14,9 +14,9 @@ multi-architecture image is pinned to its verified registry index digest.
    `http://YOUR-UMBREL-TAILSCALE-IP:4097` and the password displayed by Umbrel.
    The authentication username is `opencode`.
 
-Ports: browser launch through Umbrel on **4098**; direct desktop API on **4097**;
-internal container on 4096. Your existing V1 app can remain on host port 4096.
-Before installing, ensure 4097 and 4098 are unused on your Umbrel server.
+Browser and desktop both use **4097**, mapped to container port 4096.
+Your existing V1 app can remain on host port 4096.
+Before installing, ensure 4097 is unused on your Umbrel server.
 The direct API requires the OpenCode password and is accessible on host interfaces,
 including Tailscale; no router port forwarding is needed.
 
@@ -51,7 +51,7 @@ server started with isolated test data: authenticated `/api/info` returned 200
 with version 2.0.22, unauthenticated `/api/info` returned 401, and `/` returned 200.
 
 This package has not yet been installed on an Umbrel server. Container startup,
-Umbrel proxy behavior and the web login must be confirmed on your device.
+browser login persistence must be confirmed on your device.
 
 Sources:
 - https://github.com/getumbrel/umbrel-community-app-store
@@ -59,3 +59,15 @@ Sources:
 - https://github.com/anomalyco/opencode/blob/v2.0.22/packages/cli/Dockerfile
 - https://github.com/anomalyco/opencode/blob/v2.0.22/packages/cli/src/server-process.ts
 - https://opencode.ai/v2/docs/cli/web
+
+## Update from the initial package
+
+Refresh this community store in Umbrel and update OpenCode V2 to package
+**2.0.22.1** (upstream OpenCode remains **2.0.22**). Do not uninstall the app.
+Open it again from the Umbrel home screen; its launch port is now 4097.
+Close old port-4098 browser tabs. Use the same app password as before.
+The data mount, app ID and password derivation have not changed.
+
+This revision removes the Umbrel proxy entirely. OpenCode still enforces its own
+password. Tor app access through Umbrel’s proxy is not supported by this package;
+use Tailscale for remote access.
