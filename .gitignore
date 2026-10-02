@@ -1,0 +1,5 @@
+# Runtime data must never be committed.
+sean-opencode-v2/data/opencode/*
+!sean-opencode-v2/data/opencode/.gitkeep
+.DS_Store
+.env

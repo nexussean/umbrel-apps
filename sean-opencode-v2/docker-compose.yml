@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  app_proxy:
+    environment:
+      APP_HOST: sean-opencode-v2_app_1
+      APP_PORT: 4096
+      # OpenCode V2 provides its own password login, also used by desktop clients.
+      PROXY_AUTH_ADD: "false"
+  app:
+    image: ghcr.io/anomalyco/opencode:2.0.22@sha256:11f2b6c96d380867387fbee390c06cb47efffd9fdc37009b4cd40795b45dad19
+    command: ["serve", "--hostname", "0.0.0.0", "--port", "4096"]
+    restart: on-failure
+    init: true
+    user: "1000:1000"
+    environment:
+      HOME: /home/opencode
+      OPENCODE_SERVER_PASSWORD: ${APP_PASSWORD}
+      OPENCODE_DISABLE_AUTOUPDATE: "1"
+    working_dir: /home/opencode
+    ports:
+      # Dedicated companion-client API; bypasses the Umbrel browser proxy.
+      - "4097:4096/tcp"
+    volumes:
+      - ${APP_DATA_DIR}/data/opencode:/home/opencode
